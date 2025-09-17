@@ -333,7 +333,7 @@ static struct my_option my_long_options[] = {
     {"compress", 'C', "Use compression in server/client protocol.",
      &opt_compress, &opt_compress, nullptr, GET_BOOL, NO_ARG, 0, 0, 0, nullptr,
      0, nullptr},
-    {"convert-tinyint", OPT_CONVERT_TINYINT, "Whenever a tinyint(1) column is "
+    {"convert-tinyint", OPT_CONVERT_TINYINT, "Whenever a tinyint column is "
      "encountered, print TRUE and FALSE for values instead of 1 and 0.",
      &opt_convert_tinyint, &opt_convert_tinyint, nullptr, GET_BOOL, NO_ARG, 0,
      0, 0, nullptr, 0, nullptr},
@@ -4501,6 +4501,14 @@ static void dump_table(char *table, char *db) {
                     dynstr_append_checked(&extended_row, "'");
                     dynstr_append_checked(&extended_row, ptr);
                     dynstr_append_checked(&extended_row, "'");
+                  } else if (opt_convert_tinyint
+                              && field->type == MYSQL_TYPE_TINY) {
+                    if(*ptr == '0')
+                      dynstr_append_checked(&extended_row, "FALSE");
+                    else if(*ptr == '1')
+                      dynstr_append_checked(&extended_row, "TRUE");
+                    else
+                      dynstr_append_checked(&extended_row, ptr);
                   } else
                     dynstr_append_checked(&extended_row, ptr);
                 }
