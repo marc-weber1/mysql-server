@@ -141,7 +141,7 @@ static bool verbose = false, opt_no_create_info = false, opt_no_data = false,
             opt_network_timeout = false, stats_tables_included = false,
             column_statistics = false,
             opt_show_create_table_skip_secondary_engine = false,
-            opt_ignore_views = false;
+            opt_ignore_views = false, opt_convert_tinyint = false;
 static bool insert_pat_inited = false, debug_info_flag = false,
             debug_check_flag = false;
 static ulong opt_max_allowed_packet, opt_net_buffer_length;
@@ -333,6 +333,10 @@ static struct my_option my_long_options[] = {
     {"compress", 'C', "Use compression in server/client protocol.",
      &opt_compress, &opt_compress, nullptr, GET_BOOL, NO_ARG, 0, 0, 0, nullptr,
      0, nullptr},
+    {"convert-tinyint", OPT_CONVERT_TINYINT, "Whenever a tinyint(1) column is "
+     "encountered, print TRUE and FALSE for values instead of 1 and 0.",
+     &opt_convert_tinyint, &opt_convert_tinyint, nullptr, GET_BOOL, NO_ARG, 0,
+     0, 0, nullptr, 0, nullptr},
     {"create-options", 'a', "Include all MySQL specific create options.",
      &create_options, &create_options, nullptr, GET_BOOL, NO_ARG, 1, 0, 0,
      nullptr, 0, nullptr},

@@ -191,6 +191,7 @@ enum options_client {
   OPT_MYSQLDUMP_EXCLUDE_USER,
   OPT_MYSQLDUMP_INCLUDE_USER,
   OPT_MYSQL_COMMANDS,
+  OPT_CONVERT_TINYINT,
   /* Add new option above this */
   OPT_MAX_CLIENT_OPTION
 };
